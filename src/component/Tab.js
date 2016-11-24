@@ -1,15 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 
-export default function Tab(props) {
-  return (
-    <div className={!props.active ? 'hidden' : ''}>
-      {props.children}
-    </div>
-  );
-
-}
-
-Tab.propTypes = {
-  children: PropTypes.node.isRequired,
-  active: PropTypes.bool.isRequired,
+export default class Tab extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    active: PropTypes.bool,
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.active && !this.props.active) {
+      alert(this.props.name);
+    }
+  }
+  render() {
+    return (
+      <div className={!this.props.active ? 'hidden' : ''}>
+        {this.props.children}
+      </div>
+    );
+  }
 }
